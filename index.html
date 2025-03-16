@@ -21,7 +21,6 @@
             position: relative;
         }
 
-        /* Cosmic Background */
         #cosmic-bg {
             position: fixed;
             top: 0;
@@ -242,6 +241,7 @@
             border: 1px solid #00ffcc;
             padding: 5px;
             border-radius: 5px;
+            width: 100%; /* Full width for better mobile usability */
         }
 
         .product-details {
@@ -348,6 +348,140 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 10px;
+            }
+
+            header .logo {
+                font-size: 20px;
+            }
+
+            header nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            header nav a {
+                margin: 5px;
+                font-size: 14px;
+            }
+
+            header .search-bar {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .hero {
+                padding: 30px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .product-card {
+                padding: 10px;
+            }
+
+            .product-card h3 {
+                font-size: 14px;
+            }
+
+            .product-card p {
+                font-size: 12px;
+            }
+
+            .cart-page {
+                flex-direction: column;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .cart-item img {
+                width: 60px;
+                margin: 0 auto 10px;
+            }
+
+            .order-summary {
+                padding: 15px;
+            }
+
+            .filters {
+                padding: 15px;
+            }
+
+            .filters h3 {
+                font-size: 16px;
+            }
+
+            .product-details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .slideshow {
+                width: 100%;
+                max-width: 300px;
+                height: 200px;
+            }
+
+            .product-details h2 {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .product-details p {
+                font-size: 14px;
+                text-align: center;
+            }
+
+            .product-details button {
+                width: 100%;
+                padding: 8px;
+            }
+
+            footer {
+                padding: 15px;
+            }
+
+            footer h3 {
+                font-size: 16px;
+            }
+
+            footer div {
+                margin-bottom: 15px;
+            }
+
+            footer a {
+                display: block;
+                margin: 5px 0;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -355,7 +489,7 @@
     <div id="app"></div>
 
     <script>
-        // Cosmic Background Animation
+        // Cosmic Background Animation (unchanged)
         const canvas = document.getElementById("cosmic-bg");
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
@@ -366,7 +500,6 @@
         const comets = [];
         const numComets = 5;
 
-        // Star class
         class Star {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -394,7 +527,6 @@
             }
         }
 
-        // Comet class
         class Comet {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -424,7 +556,6 @@
             }
         }
 
-        // Initialize stars and comets
         for (let i = 0; i < numStars; i++) {
             stars.push(new Star());
         }
@@ -432,18 +563,15 @@
             comets.push(new Comet());
         }
 
-        // Animation loop
         function animateCosmos() {
             ctx.fillStyle = "rgba(10, 10, 10, 0.5)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw stars
             stars.forEach(star => {
                 star.update();
                 star.draw();
             });
 
-            // Draw comets
             comets.forEach(comet => {
                 comet.update();
                 comet.draw();
@@ -452,16 +580,14 @@
             requestAnimationFrame(animateCosmos);
         }
 
-        // Handle resize
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // Start cosmic animation
         animateCosmos();
 
-        // Sample data for 9 planets with asset images
+        // Sample data for 9 planets (unchanged)
         const planets = [
             { id: 1, name: "EARTHXNX9", price: 5000000, category: "Earths", population: "12 billion", airDensity: "High (Toxic)", radiationLevel: "Moderate", dominantSpecies: "Mutated Humans", description: "A dystopian Earth shrouded in toxic fog. Survivors have adapted, but resources are scarce.", images: ["assets/EARTHXNX9-1.jpg", "assets/EARTHXNX9-2.jpg"] },
             { id: 2, name: "JUPITERZK12", price: 8000000, category: "Jupiters", population: "3 million", airDensity: "Low (Gas Giant)", radiationLevel: "Extreme", dominantSpecies: "Gas Wraiths", description: "A gas giant with floating cities in the upper atmosphere. Only the wealthiest can survive here.", images: ["assets/JUPITERZK12-1.jpg", "assets/JUPITERZK12-2.jpg"] },
@@ -474,22 +600,18 @@
             { id: 9, name: "SATURNJL55", price: 6000000, category: "Saturns", population: "4 million", airDensity: "Low (Gas Giant)", radiationLevel: "High", dominantSpecies: "Ring Wraiths", description: "A Saturn with sentient ring wraiths guarding its rings.", images: ["assets/SATURNJL55-1.jpg", "assets/SATURNJL55-2.jpg"] }
         ];
 
-        // Cart state
         let cart = [
             { id: 1, name: "EARTHXNX9", price: 5000000, quantity: 1, image: "assets/EARTHXNX9-1.jpg" },
             { id: 2, name: "JUPITERZK12", price: 8000000, quantity: 1, image: "assets/JUPITERZK12-1.jpg" }
         ];
 
-        // Current page state
         let currentPage = "home";
         let slideshowInterval;
 
-        // Main rendering function
         function render() {
             const app = document.getElementById("app");
             app.innerHTML = "";
 
-            // Render Header
             const header = document.createElement("header");
             header.innerHTML = `
                 <div class="logo">PLANETVAULT</div>
@@ -502,7 +624,6 @@
             `;
             app.appendChild(header);
 
-            // Render Main Content based on current page
             const main = document.createElement("main");
             main.className = "container";
 
@@ -517,7 +638,6 @@
                 `;
                 app.appendChild(main);
 
-                // Render featured planets (all planets since there are only 9)
                 const featuredPlanets = document.getElementById("featured-planets");
                 planets.forEach(planet => {
                     const planetCard = document.createElement("div");
@@ -557,7 +677,6 @@
                 `;
                 app.appendChild(main);
 
-                // Render shop planets
                 const shopPlanets = document.getElementById("shop-planets");
                 planets.forEach(planet => {
                     const planetCard = document.createElement("div");
@@ -571,7 +690,6 @@
                     shopPlanets.appendChild(planetCard);
                 });
 
-                // Add filter functionality
                 document.getElementById("price-filter").oninput = function() {
                     document.getElementById("price-value").textContent = `${parseInt(this.value).toLocaleString()} GC`;
                     filterPlanets();
@@ -600,7 +718,6 @@
                 `;
                 app.appendChild(main);
 
-                // Start slideshow
                 startSlideshow();
 
             } else if (currentPage === "cart") {
@@ -619,7 +736,6 @@
                 `;
                 app.appendChild(main);
 
-                // Render cart items
                 const cartItems = document.getElementById("cart-items");
                 cart.forEach(item => {
                     const cartItem = document.createElement("div");
@@ -637,11 +753,9 @@
                     cartItems.appendChild(cartItem);
                 });
 
-                // Update order summary
                 updateOrderSummary();
             }
 
-            // Render Footer
             const footer = document.createElement("footer");
             footer.innerHTML = `
                 <div>
@@ -667,7 +781,6 @@
             app.appendChild(footer);
         }
 
-        // Navigation function
         function navigate(page, planetId = null) {
             currentPage = page;
             window.currentPlanetId = planetId;
@@ -675,7 +788,6 @@
             render();
         }
 
-        // Filter planets
         function filterPlanets() {
             const category = document.getElementById("category-filter").value;
             const maxPrice = parseInt(document.getElementById("price-filter").value);
@@ -700,7 +812,6 @@
             });
         }
 
-        // Slideshow functionality
         function startSlideshow() {
             const slideshow = document.getElementById("planet-slideshow");
             const images = slideshow.getElementsByTagName("img");
@@ -713,7 +824,6 @@
             }, 3000);
         }
 
-        // Add to cart
         function addToCart(planetId) {
             const planet = planets.find(p => p.id === planetId);
             const existingItem = cart.find(item => item.id === planetId);
@@ -725,7 +835,6 @@
             navigate("cart");
         }
 
-        // Update cart quantity
         function updateQuantity(planetId, change) {
             const item = cart.find(item => item.id === planetId);
             if (item) {
@@ -737,7 +846,6 @@
             render();
         }
 
-        // Update order summary
         function updateOrderSummary() {
             const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
             const tax = subtotal * 0.1;
@@ -748,7 +856,6 @@
             document.getElementById("total").textContent = `${total.toLocaleString()} GC`;
         }
 
-        // Initial render
         render();
     </script>
 </body>
